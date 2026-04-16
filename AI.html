@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Coin Flip Game</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        text-align: center;
+        background: #f4f4f4;
+        margin-top: 50px;
+    }
+
+    .container {
+        background: white;
+        padding: 20px;
+        width: 300px;
+        margin: auto;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0,0,0,0.2);
+    }
+
+    h1 {
+        margin-bottom: 10px;
+    }
+
+    .score {
+        font-size: 18px;
+        margin: 10px 0;
+    }
+
+    button {
+        padding: 10px;
+        margin: 5px;
+        width: 120px;
+        cursor: pointer;
+        border: none;
+        border-radius: 5px;
+        font-size: 16px;
+    }
+
+    button:hover {
+        opacity: 0.8;
+    }
+
+    .heads { background: #4CAF50; color: white; }
+    .tails { background: #2196F3; color: white; }
+
+    #message {
+        margin-top: 15px;
+        font-weight: bold;
+    }
+
+    #reset {
+        margin-top: 10px;
+        background: #f44336;
+        color: white;
+    }
+</style>
+</head>
+<body>
+
+    <!-- NAVIGATION -->
+<div class="nav">
+
+    <a href="#top">Coin Flip Game</a>
+    <a href="index.html">Back to Home Page</a>
+    
+</div>
+
+<div class="container">
+    <h1>Coin Flip Game</h1>
+
+    <div class="score">
+        You: <span id="userScore">0</span> |
+        Computer: <span id="compScore">0</span>
+    </div>
+
+    <p>Choose your pick:</p>
+
+    <button class="heads" onclick="play('heads')">Heads</button>
+    <button class="tails" onclick="play('tails')">Tails</button>
+
+    <div id="message">First to 5 wins!</div>
+
+    <button id="reset" onclick="resetGame()">Reset Game</button>
+</div>
+
+<script>
+let userScore = 0;
+let compScore = 0;
+let gameOver = false;
+
+function play(choice) {
+    if (gameOver) return;
+
+    const result = Math.random() < 0.5 ? "heads" : "tails";
+
+    if (choice === result) {
+        userScore++;
+        document.getElementById("message").innerText = "You won this round! It was " + result + ".";
+    } else {
+        compScore++;
+        document.getElementById("message").innerText = "Computer wins this round! It was " + result + ".";
+    }
+
+    document.getElementById("userScore").innerText = userScore;
+    document.getElementById("compScore").innerText = compScore;
+
+    checkWinner();
+}
+
+function checkWinner() {
+    if (userScore === 5) {
+        document.getElementById("message").innerText = "🎉 You win the game!";
+        gameOver = true;
+    } else if (compScore === 5) {
+        document.getElementById("message").innerText = "💻 Computer wins the game!";
+        gameOver = true;
+    }
+}
+
+function resetGame() {
+    userScore = 0;
+    compScore = 0;
+    gameOver = false;
+
+    document.getElementById("userScore").innerText = 0;
+    document.getElementById("compScore").innerText = 0;
+    document.getElementById("message").innerText = "First to 5 wins!";
+}
+</script>
+
+</body>
+</html>
